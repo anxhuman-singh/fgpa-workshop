@@ -2,107 +2,86 @@
 
 ## 🧠 Overview
 
-This project demonstrates basic digital logic operations using an FPGA board with the PYNQ framework. The program reads input from switches and controls LEDs based on logical operations such as AND, OR, NOR, and NAND.
+Day 2 focuses on implementing multiple **logic operations and code conversions** using switch inputs and displaying results on LEDs through the PYNQ framework.
 
 ---
 
-## 🎯 Objectives
+## 📂 Code Explanation
 
-* Interface with FPGA hardware using Python
-* Read switch inputs
-* Perform logic operations
-* Control LEDs based on results
+### 🔹 1. Setup & Initialization
 
----
-
-## 🛠️ Requirements
-
-* PYNQ-supported FPGA board (Zynq-based)
-* Python with `pynq` library
-* Base overlay file (`base.bit`)
+* `BaseOverlay('base.bit')` loads the FPGA design and enables access to LEDs and switches
+* Initial LED blink sequence verifies that the board is working properly
 
 ---
 
-## 📂 Code Description
+### 🔹 2. Logic Gates Implementation
 
-### 1. Load Base Overlay
+* Reads two switch inputs:
 
-Loads the FPGA configuration and gives access to LEDs and switches.
+  * `switch1`, `switch2` → values are `0` or `1`
 
-### 2. LED Initialization
+* Performs multiple logic operations:
 
-* Turns all LEDs ON briefly
-* Then turns them OFF
-* Acts as a startup indicator
+  * AND → `switch1 & switch2`
+  * OR → `switch1 or switch2`
+  * NOR → `not(switch1 or switch2)`
+  * NAND → `not(switch1 & switch2)`
 
-### 3. Continuous Execution
+* Each result controls a specific LED:
 
-* Reads two switches
-* Performs logic operations
-* Updates LEDs accordingly
+  * LED 0 → AND
+  * LED 1 → OR
+  * LED 2 → NOR
+  * LED 3 → NAND
 
----
-
-## ⚙️ Logic Operations
-
-| Operation | Expression                | Description                       |
-| --------- | ------------------------- | --------------------------------- |
-| AND       | `switch1 & switch2`       | True only if both switches are ON |
-| OR        | `switch1 or switch2`      | True if at least one switch is ON |
-| NOR       | `not(switch1 or switch2)` | True if both switches are OFF     |
-| NAND      | `not(switch1 & switch2)`  | True if not both are ON           |
+* LEDs turn ON/OFF based on the result, and outputs are printed to the console
 
 ---
 
-## 💡 LED Mapping
+### 🔹 3. Binary to Gray Code Conversion
 
-| LED   | Function | Behavior                          |
-| ----- | -------- | --------------------------------- |
-| LED 0 | AND      | ON when both switches are ON      |
-| LED 1 | OR       | ON when at least one switch is ON |
-| LED 2 | NOR      | ON when both switches are OFF     |
-| LED 3 | NAND     | ON when NOT both switches are ON  |
+* Takes 2-bit binary input from switches
+
+* Converts to Gray code using:
+
+  * `gray1 = switch1`
+  * `gray0 = switch1 ^ switch2` (XOR)
+
+* Outputs:
+
+  * LED 0 → MSB
+  * LED 1 → LSB
+
+* Prints Gray code values for understanding
 
 ---
 
-## 🖨️ Console Output
+### 🔹 4. Binary to Excess-3 Conversion
 
-The program prints:
+* Reads 2-bit binary input (`A`, `B`)
 
-* Logic results (OR, NAND)
-* Status messages such as:
+* Applies Excess-3 logic:
 
-  * `output = and true`
-  * `output = or true`
-  * `output = not true`
-  * `output = false (invalid)`
+  * `E0 = not B`
+  * `E1 = not(A ^ B)` (XNOR)
+  * `E2 = A | B`
+  * `E3 = 0`
+
+* Outputs mapped to LEDs:
+
+  * LED 0 → E0
+  * LED 1 → E1
+  * LED 2 → E2
+  * LED 3 → E3
+
+* Displays both input and converted output in the console
 
 ---
 
 ## ⚠️ Notes
 
-* The program runs in an infinite loop (`while True`)
-* Stop manually using `Ctrl + C`
+* All programs run in an infinite loop (`while True`)
+* Stop execution manually using `Ctrl + C`XOR
 
 ---
-
-## ▶️ How to Run
-
-```bash
-python main.py
-```
-
----
-
-## 📌 Future Improvements
-
-* Add proper XOR logic
-* Improve output messages
-* Add GUI or display support
-* Implement switch debouncing
-
----
-
-## 👨‍💻 Author
-
-Anshuman Singh
