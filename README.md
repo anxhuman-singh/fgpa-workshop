@@ -18,7 +18,7 @@ The workshop mainly focuses on:
 
 The main hardware used in this workshop is the **PYNQ-Z2 FPGA development board**.  
 
-![](pics/front.jpg) ![](pics/back.jpg)  
+![](pics/front1.jpg) ![](pics/back1.jpg)  
 Basic hardware parts used in the experiments:
 
 * PYNQ-Z2 board
