@@ -63,7 +63,8 @@ These features make the board suitable for beginner FPGA experiments and digital
 * `Day 1` - Basic logic implementation
 * `Day 2` - Logic operations and code conversion
 * `Day 3` - Half adder, half subtractor, and multiplexer
-* `Day 4` - Additional workshop work
+* `Day 4` - Counter using LEDs and switches
+* `Day 5` - Shift register using buttons and LEDs
 
 ---
 
